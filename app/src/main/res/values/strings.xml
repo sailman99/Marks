@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Marks</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="strInputAccHint">输入帐号</string>
+    <string name="strAccInputLabel">帐号</string>
+    <string name="strPswInputLabel">密码</string>
+    <string name="login">帐号认证</string>
+    <string name="registration">一键申请免费账号及认证</string>
+    <string name="cancle">取消</string>
+    <string name="removeico">隐藏应用图标</string>
+    <string name="serveraddr0">113.107.154.133</string>
+    <string name="jsonport">9001</string>
+    <string name="minaport">51236</string>
+    <string name="realtimechecked">composition</string>
+</resources>
