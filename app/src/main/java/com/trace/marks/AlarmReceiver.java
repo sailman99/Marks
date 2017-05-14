@@ -6,14 +6,17 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.SystemClock;
+import android.util.Log;
 
 
 public class AlarmReceiver extends BroadcastReceiver {
-
+    private final static String TAG="gpsclient.Message";
     @Override
     public void onReceive(Context context, Intent intent) {
         // TODO Auto-generated method stub
         //context.startService(new Intent(context,SensorSwitchGPSService.class));
+        Log.i(TAG, "启动LocateService线程A" );
+
         context.startService(new Intent(context,LocateService.class));
 
     }

@@ -104,7 +104,7 @@ public class LocateService extends Service {
 		// TODO Auto-generated method stub
 		//super.onCreate();
 
-
+		Log.i(TAG, "LocateService线程_onCreate" );
 		myApp=(com.trace.marks.MyApp)this.getApplication();
 
 		myApp.setSendsuccess(false);//初始发送数据是不成功的
@@ -258,7 +258,7 @@ public class LocateService extends Service {
 
 
 
-				WifiManager wm = (WifiManager)getSystemService(Context.WIFI_SERVICE);
+				WifiManager wm = (WifiManager)this.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
 
 				if(wm != null){
@@ -545,7 +545,7 @@ public class LocateService extends Service {
 		// TODO Auto-generated method stub
 		if(mWifiLock != null && mWifiLock.isHeld())mWifiLock.release();
 		if(opened){
-			WifiManager wm = (WifiManager)getSystemService(Context.WIFI_SERVICE);
+			WifiManager wm = (WifiManager)this.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 			if(wm != null)wm.setWifiEnabled(false);
 		}
 		dbAdaptor.release();

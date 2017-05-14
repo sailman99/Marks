@@ -17,6 +17,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
 }
 
 dependencies {
@@ -28,4 +35,7 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
     compile files('libs/mina-core-2.0.7.jar')
+    compile files('libs/org.apache.httpcomponents.httpclient_4.5.3.jar')
+    compile files('libs/org.apache.httpcomponents.httpcore_4.4.6.jar')
+    compile files('src/main/jniLibs/BaiduLBS_Android.jar')
 }

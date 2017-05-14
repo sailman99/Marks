@@ -1,4 +1,4 @@
-﻿package com.trace.marks;
+package com.trace.marks;
 
 
 import java.text.SimpleDateFormat;
@@ -7,48 +7,48 @@ import android.app.Application;
 
 
 public class MyApp extends Application {
-	
-	private boolean is_onQuit=true;//手机是否处在静止状�?,初始为静止状�?
-	private boolean is_onScreen=true;//手机是否亮屏,初始为亮屏状�?
-	private boolean is_requestReStartLocation=false;//是否�?��重新定位,初始为不�?��
-	private boolean is_WifiStartGPS=false;//是否是用WIFI启动GPS的状�?
+
+	private boolean is_onQuit=true;//手机是否处在静止状,初始为静止状
+	private boolean is_onScreen=true;//手机是否亮屏,初始为亮屏状
+	private boolean is_requestReStartLocation=false;//是否重新定位,初始为不
+	private boolean is_WifiStartGPS=false;//是否是用WIFI启动GPS的状
 	private boolean is_WifiOpenGPS=false;//是否因为连接上WIFI而启动GPS
-	
-	private int   _id;//识别�?
-	private String gpsdatetime ;//时间 
+
+	private int   _id;//识别
+	private String gpsdatetime ;//时间
 	private double longitude;//经度
 	private double latitude;//纬度
 	private float speed;//速度
 	private float  accuracy;//精度
-	
+
 	private String wifidatetime;
 	private double wifilongitude;
 	private double wifilatitude;
-	
+
 	private long _gpstime=0;//从GPS中得到实时的时间，用它来判断数据是否已经更新
 	private long _wifitime=0;//用WIFI更新数据时存系统时间
-	private long _gpstiming;//GPS工作计时�?这是在WIFI已连上网�?但GPS还工�?有一计时�?当WIFI状�?�?0分钟没有变化,主动断开GPS节约电源
+	private long _gpstiming;//GPS工作计时这是在WIFI已连上网但GPS还工有一计时当WIFI状0分钟没有变化,主动断开GPS节约电源
 	private boolean sendsuccess;
-	
+
 	private long _scantime;
 	private boolean isStartGPS=false;
-	
+
 	private String minaserver;
 	private String jsonport;
 	private String uppublic;
-	
-	
+
+
 	private int opengps=0;
 	private int opengpscanuse=0;
 	private int gpsstart=0;
 	private int gpsinsert=0;
 	private int wifiinsert=0;
-	
+
 	private boolean isShake=true;
-	
-	
+
+
 	/*
-	
+
 	private int GsmCellLocation_cid;
 	private int GsmCellLocation_lac;
 	private int GsmCellLocation_signalStrength;
@@ -73,7 +73,7 @@ public class MyApp extends Application {
 */
 
 
-	
+
 	public boolean isShake() {
 		return isShake;
 	}
@@ -155,21 +155,21 @@ public class MyApp extends Application {
 	/*
 	 * 用来记录扫描AP次数,当扫描有10,就算再扫描到AP,而其他条件都符合,也不会启动GPS
 	 */
-	
-	//private Map<String,Long> map=new HashMap<String, Long>();//记录发现AP的次�?第一参数是AP的MAC,第二参数是扫描次�?
-	
-	
+
+	//private Map<String,Long> map=new HashMap<String, Long>();//记录发现AP的次第一参数是AP的MAC,第二参数是扫描次
+
+
 	private SimpleDateFormat sdf;//
-	
+
 	public SimpleDateFormat getSdf() {
 		//return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",Locale.CHINA); //本地时间格式
 		SimpleDateFormat sim=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		sim.setTimeZone(TimeZone.getDefault());
-		return sim;	
+		return sim;
 	}
-	
-	
-	
+
+
+
 	public boolean isStartGPS() {
 		return isStartGPS;
 	}
@@ -182,7 +182,7 @@ public class MyApp extends Application {
 
 
 
-	
+
 	public long get_scantime() {
 		return _scantime;
 	}
@@ -191,8 +191,8 @@ public class MyApp extends Application {
 	public void set_scantime(long _scantime) {
 		this._scantime = _scantime;
 	}
-	
-	
+
+
 
 	public boolean isSendsuccess() {
 		return sendsuccess;
@@ -204,8 +204,8 @@ public class MyApp extends Application {
 	}
 
 
-	
-	
+
+
 	public long get_gpstiming() {
 		return _gpstiming;
 	}
@@ -344,5 +344,5 @@ public class MyApp extends Application {
 	}
 
 
-	
+
 }
