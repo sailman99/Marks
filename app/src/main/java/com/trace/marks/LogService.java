@@ -92,6 +92,7 @@ public class LogService extends Service {
 		register();
 		deploySwitchLogFileTask();
 		new LogCollectorThread().start();
+
 	}
 
 	private void init(){

@@ -5,8 +5,11 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Environment;
 import android.os.SystemClock;
 import android.util.Log;
+
+import java.io.File;
 
 
 public class AlarmReceiver extends BroadcastReceiver {
@@ -28,10 +31,10 @@ public class AlarmReceiver extends BroadcastReceiver {
 		  * 
 		  */
 
-        AlarmManager am=(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        AlarmManager am=(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);//闹钟接口
         Intent intent = new Intent(context, AlarmReceiver.class);
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
-        am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), sampling*1000, pi); // Millisec * Second * Minute
+        am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), sampling*1000, pi); // Millisec * Second * Minute，使应用在休眠时不被关闭
     }
 
     public void CancelAlarm(Context context)

@@ -105,17 +105,18 @@ public class LocateService extends Service {
 		//super.onCreate();
 
 		Log.i(TAG, "LocateService线程_onCreate" );
-		myApp=(com.trace.marks.MyApp)this.getApplication();
+		myApp=(MyApp)this.getApplication();
 
 		myApp.setSendsuccess(false);//初始发送数据是不成功的
 		dbAdaptor=DbAdaptor.getInstance(getApplicationContext());
-		dbAdaptor.getdb().execSQL("delete from  apdata where realtime<? and singlelevel<?",new Object[]{System.currentTimeMillis()-7776000000l,-180});
-		dbAdaptor.getdb().execSQL("delete from  apdata where realtime<? ",new Object[]{System.currentTimeMillis()-31536000000l});
+
+		dbAdaptor.getdb().execSQL("delete from  apdata where realtime<? and singlelevel<?",new Object[]{System.currentTimeMillis()-7776000000l,-180});//删除90天内没有用到的AP
+		dbAdaptor.getdb().execSQL("delete from  apdata where realtime<? ",new Object[]{System.currentTimeMillis()-31536000000l});//删除365天内的AP
 
 
 		shakeDetector = new ShakeDetector(this);
 		myOnShakeListener=new MyOnShakeListener();
-		shakeDetector.registerOnShakeListener(myOnShakeListener);
+		shakeDetector.registerOnShakeListener(myOnShakeListener);//注册手机震动监控事件
 
 		IntentFilter intentFilter = new IntentFilter();
 		intentFilter.addAction(Intent.ACTION_SCREEN_OFF);
@@ -123,12 +124,12 @@ public class LocateService extends Service {
 		intentFilter.addAction("Stop GPS");
 		intentFilter.addAction("Start GPS");
 		//intentFilter.addAction("WIFI Connected then Start GPS");
-		registerReceiver(new ScreenStatusListener(this.getApplication(),getBaseContext()), intentFilter);
+		registerReceiver(new ScreenStatusListener(this.getApplication(),getBaseContext()), intentFilter);//注册手机屏幕状态事件
 
 
 		IntentFilter wifiIntent = new IntentFilter();
 		wifiIntent.addAction (WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
-		registerReceiver(new WifiScanListener(this.myApp,dbAdaptor), wifiIntent);
+		registerReceiver(new WifiScanListener(this.myApp,dbAdaptor), wifiIntent);//注册手机WIFI扫描结果事件
 
 		 /*
 
@@ -191,16 +192,13 @@ public class LocateService extends Service {
 	public int onStartCommand(Intent intent, int flags, int startId) {
 
 
-		Log.i(TAG, "onStartCommand,时间是:"+myApp.getSdf().format(System.currentTimeMillis()));
+	//	Log.i(TAG, "onStartCommand,时间是:"+myApp.getSdf().format(System.currentTimeMillis()));
 
 		// sendGpsworkstaticCount++;
 
 
 		//	cellLocation.requestLocationUpdate();
-
-
-
-
+		//得到上一次发送数据的时间，这为下一次发送做好准备
 		Long senddatatmp=0l;
 		Long sendmsgtmp=0l;
 		Cursor curtimekeeper=dbAdaptor.getdb().rawQuery("select idindex,senddata,sendmsg from timekeeper where idindex=?",new String[]{"1"});
@@ -220,7 +218,7 @@ public class LocateService extends Service {
 
 		final Long senddata=senddatatmp;
 		final Long sendmsg=sendmsgtmp;
-
+		//Log.i(TAG, "senddata是:"+senddata);
 
 
 

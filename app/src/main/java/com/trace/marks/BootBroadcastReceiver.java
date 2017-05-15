@@ -63,7 +63,7 @@ public class BootBroadcastReceiver extends BroadcastReceiver {
 			}
 			dbAdaptor.release();
 
-			//context.startService( new Intent (context,LogService.class) );
+			context.startService( new Intent (context,LogService.class) );
 
 		}
 

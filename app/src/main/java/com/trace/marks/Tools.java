@@ -13,14 +13,12 @@ import android.database.Cursor;
 import android.net.wifi.ScanResult;
 import android.provider.Settings.Secure;
 import android.telephony.TelephonyManager;
-
-
-
+import android.util.Log;
 
 
 public  class Tools {
 
-//	private static String TAG="gpsclient.Message";
+	private static String TAG="gpsclient.Message";
 
 	private static final double EARTH_RADIUS = 6378137;//地球半径，单位为米
 	public static String getDeviceId(Context context){
@@ -76,6 +74,8 @@ public  class Tools {
 		}
 		return String.valueOf(_lnglatb+subtract);
 	}
+
+	//WIFI扫描结果处理
 	@SuppressLint("DefaultLocale")
 	public static int aa(List<ScanResult> list,DbAdaptor dbAdaptor,MyApp myApp,Context context,int startOrstop,boolean is_startGPS ){
 		//int startOrstop=0;//通过它计数,当它达到3的时候,启动GPS,当它小于0的时候,关闭GP
@@ -84,7 +84,7 @@ public  class Tools {
 		final int twoApMaxDistance=400;//定义两个AP之间最大距离，如果大于400米，表明两个AP不是在同一地方，有可能其中一AP是移动AP
 		if(null==list)
 			return  startOrstop;
-
+		//WIFI按信号强度排序
 		Collections.sort(list,new Comparator<ScanResult>(){  //排序，用信号强度来排序，相同的用名字排序
 			public int compare(ScanResult arg0, ScanResult arg1) {
 				int flag = arg1.level-arg0.level;
@@ -104,8 +104,9 @@ public  class Tools {
 
 		startOrstop++;//先把它加一,如果不合条件,再减二
 
-		long scanaptime=System.currentTimeMillis();
+		long scanaptime=System.currentTimeMillis();//扫描时间
 		Map<String,Long> scanmap=new HashMap<String,Long>();
+		//清空6小时前的WIFI扫描结果，这是否可改？？？？
 		dbAdaptor.getdb().execSQL("delete from  apmap where realtime<? ",new Object[]{System.currentTimeMillis()-21600000l});
 		for(ScanResult scanResult : list){//ap扫描结果
 			if(scanResult.BSSID.trim().length()!=17||"00:00:00:00:00:00".equals(scanResult.BSSID))//保证MAC地址是17位，多拉或少啦都不行，这是常量，最终都不用该变得
@@ -708,7 +709,7 @@ public  class Tools {
 		long oldrealtime=0;
 		Map<String,Long> apmap=new HashMap<String,Long>();//记录每次扫描得到的AP的MAC及当时的时间
 		Cursor scanapcur=dbAdaptor.getdb().rawQuery("select realtime ,bssid from scanap   order by realtime desc",null);//查数据库有没有记录
-		//Log.i(TAG,"scanap counts:"+String.valueOf(scanapcur.getCount()));
+		Log.i(TAG,"scanap counts:"+String.valueOf(scanapcur.getCount()));
 		if(scanapcur.getCount()>0){
 			scanapcur.moveToFirst();
 			firstrealtime=scanapcur.getLong(0);
