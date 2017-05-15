@@ -8,8 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
-
-
+import android.util.Log;
 
 
 public class ScreenStatusListener  extends BroadcastReceiver {
@@ -21,7 +20,7 @@ public class ScreenStatusListener  extends BroadcastReceiver {
 	private boolean isWiFiSwitchGPSOn;//是否由WIFI打开GPS的
 	private WifiManager wm;
 	private GPSService gpsService;//
-	//	private final static String TAG="gpsclient.Message";
+	private final static String TAG="gpsclient.Message";
 	private MyApp myApp;
 	public ScreenStatusListener(Application application,Context context){
 		wm = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);
@@ -185,6 +184,8 @@ public class ScreenStatusListener  extends BroadcastReceiver {
 
 		}
 		if(intent.getAction().equals("Start GPS")){
+
+			Log.i(TAG,"Start  GPS");
 			isWiFiSwitchGPSOn=true;//WIFI打开GPS
 
 			if(isScreenOff&&myApp.isShake()){
@@ -196,6 +197,7 @@ public class ScreenStatusListener  extends BroadcastReceiver {
 
 		}
 		if(intent.getAction().equals("Stop GPS")){
+			Log.i(TAG,"Stop  GPS");
 			//if(isScreenOff)
 			//	Log.i(TAG,"ScreanStatusListener onReceive Stop GPS  then gpsService.endGPSService();时间是:"+myApp.getSdf().format(System.currentTimeMillis()));
 			gpsService.endGPSService();

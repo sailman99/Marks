@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
-
+import android.util.Log;
 
 
 public class WifiScanListener extends BroadcastReceiver{
@@ -15,7 +15,7 @@ public class WifiScanListener extends BroadcastReceiver{
 
 	private MyApp myApp;
 	private  int startOrstop=0;
-	//  private static String TAG="gpsclient.Message";
+	private static String TAG="gpsclient.Message";
 	private DbAdaptor dbAdaptor;//数据库操作用
 
 
@@ -31,7 +31,7 @@ public class WifiScanListener extends BroadcastReceiver{
 
 
 
-		//	  Log.i(TAG, "WifiScanListener onReceive ,时间是:"+myApp.getSdf().format(System.currentTimeMillis()));
+		Log.i(TAG, "WifiScanListener onReceive ,时间是:"+myApp.getSdf().format(System.currentTimeMillis()));
 		myApp.set_gpstiming(System.currentTimeMillis());//更新GPS计时器时间
 		myApp.set_scantime(System.currentTimeMillis());
 
